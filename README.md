@@ -1,59 +1,84 @@
-# BlinkAngular
+# Blink Website – E-Commerce Frontend for Branch Inventory & Order Fulfillment
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.8.
+This repository contains the **Customer-Facing Website** for **Blink – Branch Inventory & E-Commerce System**, a scalable and dynamic e-commerce platform designed to offer a seamless shopping experience by integrating branch-level inventory with real-time location-based order fulfillment.
 
-## Development server
+> ⚠️ **Note**: This repository contains the **customer website only**. The admin dashboard is available in a separate repository.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## 📦 Installation
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+After cloning the repository, install all required dependencies by running:
 
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
+
+## 🚀 Running the Project Locally
+
+To compile and launch the project in your browser, run:
 
 ```bash
-ng generate --help
+ng serve -o
 ```
 
-## Building
+This command will start the Angular development server and open the website in your default browser.
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## 🌐 Live Demo
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+You can explore the live version of the customer website here:
 
-## Running unit tests
+🔗 [https://blink-website-cyan.vercel.app/Homepage](https://blink-website-cyan.vercel.app/Homepage)
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+## 🧾 Project Overview
 
-## Running end-to-end tests
+**Blink – Branch Inventory & E-Commerce System** is a full-fledged platform designed for large-scale inventory, logistics, and online sales. The customer website enables users to:
 
-For end-to-end (e2e) testing, run:
+- 🛍️ Browse and search products by categories or filters
+- 📍 View product availability in real-time based on their current location
+- 🏪 Fulfill orders from the nearest warehouse using GIS tracking
+- 💳 Checkout using secure online payment methods via Stripe
+- 🔐 Register, login, and manage personal profiles and order history
+- 🎯 Receive discounts and promotions managed from the admin dashboard
 
-```bash
-ng e2e
-```
+---
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🛠️ Tech Stack
 
-## Additional Resources
+- **Frontend**: Angular 19 (Single Page Application)
+- **Backend**: ASP.NET Core 9 (Web API – shared with Admin Dashboard)
+- **Database**: SQL Server with Entity Framework Core
+- **Authentication**: JWT for secure user access
+- **Integrations**:
+  - **Stripe** – Secure and easy online payments
+  - **Google Maps API** – Location-based branch tracking
+  - **Azure** – Hosting and deployment
+  - **Power BI** – Analytics (used in Admin Portal)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+## 📂 Features Included
+
+- 🧭 Homepage with promotional banners and featured products
+- 📦 Product detail pages with image gallery and stock availability
+- 🔍 Category-based product listings with filters
+- 🛒 Full shopping cart and checkout flow
+- 🧾 Order confirmation and history tracking
+- 👤 Customer authentication and profile management
+- 🗺️ Real-time location services to determine the closest branch
+
+---
+
+## 📧 Contact
+
+For support, questions, or contribution requests, feel free to open an issue or contact the project maintainers directly.
+
+---
+
+© 2025 Blink E-Commerce. All rights reserved.
