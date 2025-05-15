@@ -1,0 +1,88 @@
+<div *ngIf="isLoading" class="loading-spinner">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  
+  <div *ngIf="!isLoading && orderDetails" class="confirmation-container">
+    <div class="confirmation-header">
+      <div class="checkmark-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <h1 class="confirmation-title">Order Confirmed!</h1>
+      <p class="confirmation-subtitle">Thank you for your purchase</p>
+      <p class="order-number">Order #{{ orderDetails.orderId }}</p>
+    </div>
+  
+    <div class="confirmation-body">
+      <div class="order-details-card">
+        <h3 class="section-title">📦 Order Summary</h3>
+        
+        <div class="order-meta">
+          <div class="meta-item">
+            <span class="meta-label">Order Date</span>
+            <span class="meta-value">{{ orderDetails.orderDate | date: 'medium' }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Status</span>
+            <span class="meta-value status-badge">{{ orderDetails.orderStatus }}</span>
+          </div>
+        </div>
+  
+        <div class="order-items">
+          <h4 class="items-title">Your Items ({{ orderDetails.items.length }})</h4>
+          
+          <div class="items-grid">
+            @for (item of orderDetails.items; track orderId) {
+              <div class="item-card">
+                <img [src]="item.productImageUrl" alt="{{ item.productName }}" class="product-image" />
+                <div class="item-info">
+                  <h5 class="product-name">{{ item.productName }}</h5>
+                  <div class="item-meta">
+                    <span class="quantity">Qty: {{ item.quantity }}</span>
+                    <span class="price">{{ item.unitPrice }} EGP</span>
+                  </div>
+                </div>
+              </div>
+            } @empty {
+              <p class="no-items">No items in this order</p>
+            }
+          </div>
+        </div>
+  
+        <div class="order-totals">
+          <div class="total-row">
+            <span>Subtotal</span>
+            <span>{{ orderDetails.total - orderDetails.tax - orderDetails.shipping }} EGP</span>
+          </div>
+          <div class="total-row">
+            <span>Tax</span>
+            <span>{{ orderDetails.tax }} EGP</span>
+          </div>
+          <div class="total-row">
+            <span>Shipping</span>
+            <span>{{ orderDetails.shipping }} EGP</span>
+          </div>
+          <div class="total-row grand-total">
+            <span>Total</span>
+            <span>{{ orderDetails.total }} EGP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="confirmation-actions">
+      <button routerLink="/Homepage" class="btn home-btn">
+        <i class="fas fa-home"></i> Back to Home
+      </button>
+      <button routerLink="/myOrders" class="btn orders-btn">
+        <i class="fas fa-list"></i> View All Orders
+      </button>
+      <button (click)="CancelOrder(orderDetails.orderId)" class="btn cancel-btn">
+        <i class="fas fa-times"></i> Cancel Order
+      </button>
+    </div>
+  </div>

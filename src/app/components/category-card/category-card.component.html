@@ -1,0 +1,15 @@
+@if (categoryEntity) {
+
+  <a class="text-decoration-none text-dark" [routerLink]="['/shop', categoryEntity.categoryId]">
+    <div class="cart-card position-relative d-flex flex-column rounded-1 align-items-start justify-content-start border border-2 p-1">
+      <div class="cart-image d-flex align-items-center justify-content-center mt-1">
+        <img [src]="categoryEntity.categoryImage" style="width: 50%; height: 90%;" alt="">
+      </div>
+      <div class=" w-100 mt-2  text-center">
+        <p class="px-2 mx-auto text-truncate" style="overflow: hidden; white-space: nowrap;">{{categoryEntity.categoryName}}</p>
+      </div>
+    </div>
+  </a>
+  
+
+}

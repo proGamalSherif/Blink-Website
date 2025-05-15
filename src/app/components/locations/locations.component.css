@@ -1,0 +1,86 @@
+
+.iti-locations {
+    padding: 20px;
+  
+    margin-bottom: 100px;
+}
+.iti-locations h4 {
+    margin-bottom: 10px;
+}
+.iti-locations p {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 0.7em;
+}
+
+
+.locations-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+
+.map-section {
+    flex: 1;
+    text-align: center;
+   
+   
+    
+}
+.map-section .map-image {
+    max-width: 100%;
+    height: 250px;
+    
+    border-radius: 5px;  
+    object-fit: contain;
+}
+
+
+.branches-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.branches-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+}
+.location {
+    padding: 10px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    text-align: left;
+    font-size: 0.7em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.location .icon {
+    margin-right: 10px;
+    color: #ff5722;
+}
+
+.location.active {
+    background-color: #ffe0b2;
+    border-color: #ff9800;
+}
+
+
+.labels {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+
+

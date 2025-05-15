@@ -1,0 +1,190 @@
+<!-- @if(isLoading == false){ -->
+    <div class="d-flex flex-column min-vh-100 mt-2">
+        <div class="row w-100 m-0  flex-grow-1 ">
+            <!-- Filter Sidebar -->
+            <div class="col-12 col-md-2 border-end p-3" style="margin-top:70px ;">
+                <button class="btn btn-danger btn-sm broderR2   w-100 mb-4" (click)="ApplyFilter()" > Apply</button>
+                @for(att of attributeArr; track att.attributeId)
+                 {
+                        <!--  att dropdown -->
+                        <div>
+                            <p class="">
+                                <button
+                                    class="btn btn-light w-100 text-start shadow rounded-pill d-flex justify-content-between align-items-center"
+                                    (click)="toggleCollapse(att.attributeId)">
+                                    {{ att.attributeName }}<i class="fa-solid fa-chevron-down"></i>
+                                </button>
+                            </p>
+                            <div [@collapseAnimation]="
+                        collapseStates[att.attributeId] ? 'open' : 'closed'
+                    " class="ms-4 mt-2">
+                                
+                                @for(attValue of att.defaultAttributes; track
+                                $index) {
+                                <div class="form-check ms-2">
+                                    <input class="form-check-input" type="checkbox"  value="{{attValue.attributeValue}}" id="checkChecked" (change)="onCheckboxChange(att.attributeId, attValue.attributeValue, $event)" />
+                                    <label class="form-check-label" for="checkChecked">
+                                        {{ attValue.attributeValue }}
+                                    </label>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        <!-- att dropdown -->
+                } 
+                  <!--  rating -->
+<div>
+    <p class="">
+      <button
+        class="btn btn-light w-100 text-start shadow rounded-pill d-flex justify-content-between align-items-center"
+        (click)="toggleRatingCollapse()">
+        Rating<i class="fa-solid fa-chevron-down"></i>
+      </button>
+    </p>
+    <div [@collapseAnimation]="isRatingCollapsed ? 'open' : 'closed'" class="ms-4 mt-2">
+      <!-- Loop through ratingArr and display radio buttons -->
+      @for(rate of ratingArr; track $index) {
+        @if (rate == 0) {
+          <div class="form-check ms-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="rating" 
+              [value]="-1" 
+              id="rating-all"
+              (change)="onRatingChange(-1)"
+            />
+            <label class="form-check-label" for="rating-all">
+              All
+            </label>
+          </div>
+        } @else {
+          <div class="form-check ms-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="rating"
+              [value]="rate"
+              id="rating-{{rate}}"
+              (change)="onRatingChange(rate)" >
+            <label class="form-check-label text-warning" for="rating-{{rate}}">
+              @for(star of getStars(rate); track $index) {
+                &#9733; <!-- Display the star icon -->
+              }
+            </label>
+          </div>
+        }
+      }
+    </div>
+  </div>
+  <!-- end rating -->
+  
+    
+                <!--  price -->
+            <div>
+                <p class="">
+                <button
+                    class="btn btn-light w-100 text-start shadow rounded-pill d-flex justify-content-between align-items-center"
+                    (click)="togglePriceCollapse()">
+                    Price<i class="fa-solid fa-chevron-down"></i>
+                </button>
+                </p>
+                <div [@collapseAnimation]="isPriceCollapsed ? 'open' : 'closed'" class="mt-2">
+                <!-- Compact Price Range Inputs -->
+                <div class="row g-1 p-1">
+                    <div class="col-12">
+                    <div class="input-group input-group-sm" style="max-width: 180px;">
+                        <input type="number"
+                        class="form-control form-control-sm border-end-0 border border-1 border-danger"
+                        placeholder="From"
+                        [(ngModel)]="fromPrice"
+                        style="padding: 0.2rem; height: 28px; font-size: 0.8rem;">
+                        <span class="input-group-text bg-danger px-1 border-start-0 border-end-0"
+                        style="font-size: 0.8rem; padding: 0 0.2rem;"><i class="fa-solid fa-chevron-right text-light"></i></span>
+                        <input type="number"
+                        class="form-control form-control-sm border-start-0 border border-1 border-danger"
+                        placeholder="To"
+                        [(ngModel)]="toPrice"
+                        style="padding: 0.2rem; height: 28px; font-size: 0.8rem;">
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+             <!-- end price -->
+  
+            </div>
+    
+            <!-- Main Content -->
+            <div class="col-12 col-md-10 p-3 ">
+                <!-- Breadcrumb Navigation -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a routerLink="Homepage" class="link-danger">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                    </ol>
+                </nav>
+
+                <div class="row col-12 m-0  mx-auto mb-2 ">   
+                    <div class="col-12 col-md-11 ">
+                        <input [(ngModel)]="text" type="search" class="form-control shadow text-danger search-input  broderR2 w-100 mx-auto " placeholder="Search Product"  />
+                    </div>
+                    <div class="col-12 col-md-1 d-flex align-items-center">
+                        <button class="btn btn-danger btn-sm w-100 broderR2"> Search </button>
+                    </div>
+                </div>
+                
+    
+                <!-- Product Grid -->
+                <div class="row d-flex mx-auto justify-content-center g-3 ">
+                    @if(FilteredProductArr){
+    
+                        @if(FilteredProductArr.length == 0)
+                        {
+                            <div class="col mx-auto my-3 w-100 text-center">
+                                <h3 class="text-danger fw-lighter">No Products Found</h3>
+                            </div>
+                        }@else
+                        {
+                                @for (Product of FilteredProductArr | search : text : 'productName'; track Product.productId) {
+                                    
+                                        <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center px-3 py-2  ">
+                                            <app-product-card [productId]="Product.productId" class="w-100 "></app-product-card>
+                                          </div>
+                                        
+                                   
+                                    }
+                        }
+    
+                    }
+                   
+                   
+                </div>
+    
+                 <!-- Paggination -->
+       <div class="pg-footer mt-5 w-100 d-flex align-items-center justify-content-end">
+        <div class="tbl-nav d-flex align-items-center gap-3">
+          <button class="btn btn-outline-danger rounded-circle shadow-sm" title="Previous" (click)="prevPage()" [disabled]="CurrentPage == 1">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+          
+          <input type="text" class="form-control text-center border border-danger rounded-pill shadow-sm"
+                 style="width: 60px;" placeholder="1" disabled [value]="CurrentPage" />
+      
+          <button class="btn btn-outline-danger rounded-circle shadow-sm" title="Next" (click)="nextPage()" [disabled]="CurrentPage == TotalPages">
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    
+            </div>
+        </div>
+    </div>
+<!-- }@else{
+    <div class="vh-100 d-flex justify-content-center align-items-center">
+        <i  class="fas fa-spinner fa-spin fa-4x text-danger"></i>
+    </div>
+  
+} -->

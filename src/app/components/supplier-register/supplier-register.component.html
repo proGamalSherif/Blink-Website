@@ -1,0 +1,297 @@
+<section class="max-vh-100">
+    <div class="containr2 ">
+      <div class="container3">
+        <div class="row ">
+          <div class="col-md-6 ">
+            <div class="  ">
+              <img
+                src="./assets/images/register.png"
+                alt="Register"
+                class="img-fluid h-75 "
+              />
+            </div>
+          </div>
+  
+          <div class="col-md-6 px-5 d-flex align-items-center">
+            <div class=" px-5 mx-4">
+              <p class="title mt-2  mb-3">Supplier Register</p>
+  
+              <form [formGroup]="registerForm" (ngSubmit)="registeration()">
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <!-- <label for="fname" class="form-label">First Name</label> -->
+                    <input
+                      #inputFName
+                      formControlName="fName"
+                      type="text"
+                      class="custom-input"
+                      id="fname"
+                      placeholder="Enter first name"
+                    />
+                    <!-- validation  -->
+                    <div
+                      class="text-danger"
+                      *ngIf="
+                        registerForm.get('fName')?.errors &&
+                        registerForm.get('fName')?.touched
+                      "
+                    >
+                      <p *ngIf="registerForm.get('fName')?.getError('required')">
+                        Name Is Required
+                      </p>
+                      <p *ngIf="registerForm.get('fName')?.getError('minlength')">
+                        Name Minlength is 3
+                      </p>
+                      <p *ngIf="registerForm.get('fName')?.getError('maxlength')">
+                        Name Maxlength is 15
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <!-- <label for="lname" class="form-label">Last Name</label> -->
+                    <input
+                      #inputLName
+                      formControlName="lName"
+                      type="text"
+                      class="custom-input"
+                      id="lname"
+                      placeholder="Enter last name"
+                    />
+                    <!-- validation  -->
+                    <div
+                      class="text-danger"
+                      *ngIf="
+                        registerForm.get('lName')?.errors &&
+                        registerForm.get('lName')?.touched
+                      "
+                    >
+                      <p *ngIf="registerForm.get('lName')?.getError('required')">
+                        Name Is Required
+                      </p>
+                      <p *ngIf="registerForm.get('lName')?.getError('minlength')">
+                        Name Minlength is 3
+                      </p>
+                      <p *ngIf="registerForm.get('lName')?.getError('maxlength')">
+                        Name Maxlength is 15
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <!-- <label for="username" class="form-label">Username</label> -->
+                  <input
+                    #inputUserName
+                    formControlName="userName"
+                    type="text"
+                    class="custom-input"
+                    id="username"
+                    placeholder="Enter a username"
+                  />
+                  <!-- validation  -->
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      registerForm.get('userName')?.errors &&
+                      registerForm.get('userName')?.touched
+                    "
+                  >
+                    <p *ngIf="registerForm.get('userName')?.getError('required')">
+                      Username Is Required
+                    </p>
+                    <p
+                      *ngIf="registerForm.get('userName')?.getError('minlength')"
+                    >
+                      Username Minlength is 3
+                    </p>
+                    <p
+                      *ngIf="registerForm.get('userName')?.getError('maxlength')"
+                    >
+                      Username Maxlength is 20
+                    </p>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <!-- <label for="email" class="form-label">Email</label> -->
+                  <input
+                    #inputEmail
+                    formControlName="email"
+                    type="email"
+                    class="custom-input"
+                    id="email"
+                    placeholder="Enter email"
+                    autocomplete="username"
+                  />
+                  <!-- validation  -->
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      registerForm.get('email')?.errors &&
+                      registerForm.get('email')?.touched
+                    "
+                  >
+                    <p *ngIf="registerForm.get('email')?.getError('required')">
+                      Email Is Required
+                    </p>
+                    <p *ngIf="registerForm.get('email')?.getError('email')">
+                      Email Is Invalid Format
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <!-- <label for="password" class="form-label">Password</label> -->
+                    <input
+                      #inputPassword
+                      formControlName="password"
+                      type="password"
+                      class="custom-input"
+                      id="password"
+                      placeholder="Enter password"
+                      autocomplete="new-password"
+                    />
+                    <!-- validation  -->
+                    <div
+                      class="text-danger"
+                      *ngIf="
+                        registerForm.get('password')?.errors &&
+                        registerForm.get('password')?.touched
+                      "
+                    >
+                      <p
+                        *ngIf="registerForm.get('password')?.getError('required')"
+                      >
+                        Password Is Required
+                      </p>
+                      <p
+                        *ngIf="registerForm.get('password')?.getError('pattern')"
+                      >
+                        Password must be at least 8 characters long and include at
+                        least one uppercase letter," +" one digit, and one special
+                        character
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <!-- <label for="repassword" class="form-label">Confirm Password</label> -->
+                    <input
+                      #InputRepassword
+                      formControlName="rePassword"
+                      type="password"
+                      class="custom-input"
+                      id="repassword"
+                      placeholder="Re-enter password"
+                      autocomplete="new-password"
+                    />
+                    <!-- validation  -->
+                    <div
+                      class="text-danger"
+                      *ngIf="
+                        registerForm.get('rePassword')?.errors &&
+                        registerForm.get('rePassword')?.touched
+                      "
+                    >
+                      <p
+                        *ngIf="
+                          registerForm.get('rePassword')?.getError('required')
+                        "
+                      >
+                        rePassword Is Required
+                      </p>
+                      <p
+                        *ngIf="
+                          registerForm.get('rePassword')?.getError('mismatch')
+                        "
+                      >
+                        rePassword and Password don't match !
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <!-- <label for="phone" class="form-label">Phone Number</label> -->
+                  <input
+                    #inputPhone
+                    formControlName="phoneNumber"
+                    type="tel"
+                    class="custom-input"
+                    id="phone"
+                    placeholder="Enter phone number"
+                  />
+                  <!-- validation  -->
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      registerForm.get('phoneNumber')?.errors &&
+                      registerForm.get('phoneNumber')?.touched
+                    "
+                  >
+                    <p
+                      *ngIf="
+                        registerForm.get('phoneNumber')?.getError('required')
+                      "
+                    >
+                      phone Is Required
+                    </p>
+                    <p
+                      *ngIf="registerForm.get('phoneNumber')?.getError('pattern')"
+                    >
+                      accept only egypt phone number
+                    </p>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <!-- <label for="address" class="form-label">Address</label> -->
+                  <textarea
+                    #InputAddress
+                    formControlName="address"
+                    class="custom-input"
+                    id="address"
+                    rows="2"
+                    placeholder="Enter your address"
+                  ></textarea>
+                  <!-- validation  -->
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      registerForm.get('address')?.errors &&
+                      registerForm.get('address')?.touched
+                    "
+                  >
+                    <p *ngIf="registerForm.get('address')?.getError('required')">
+                      Address Is Required
+                    </p>
+                    <p *ngIf="registerForm.get('address')?.getError('minlength')">
+                      Address Minlength is 10
+                    </p>
+                    <p *ngIf="registerForm.get('address')?.getError('maxlength')">
+                      Address Maxlength is 100
+                    </p>
+                  </div>
+                </div>
+                <button
+                  [disabled]="registerForm.invalid"
+                  type="submit"
+                  class="btn broderR2 submit mx-auto mt-5 d-block text-white px-lg-3 w-50"
+                  
+                >
+                  Create Account
+                  <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                </button>
+  
+                <p class="text-danger mt-1" *ngIf="msgerror">
+                  {{ msgerror }}
+                </p>
+  
+                <div class="text-center mt-1">
+                  <a routerLink="/login" class="btn btn-link text-dark"
+                    >Already have an account? Login</a
+                  >
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

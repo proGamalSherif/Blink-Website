@@ -1,0 +1,188 @@
+
+<!----------- my orders ----------->
+<div class="orders-page">
+
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a routerLink="Homepage" class="link-danger">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">My Orders</li>
+    </ol>
+</nav>
+
+  <div class="tabs-container">
+    <div class="tabs-nav  d-flex justify-content-center align-items-center">
+      <button 
+        class="tab-button" 
+        [class.active]="activeTab === 'all'"
+        (click)="setActiveTab('all')">
+        <i class="fas fa-list"></i> All Orders
+      </button>
+      <button 
+        class="tab-button" 
+        [class.active]="activeTab === 'shipped'"
+        (click)="setActiveTab('shipped')">
+        <i class="fas fa-truck"></i> Shipped
+      </button>
+      <button 
+        class="tab-button" 
+        [class.active]="activeTab === 'delivered'"
+        (click)="setActiveTab('delivered')">
+        <i class="fas fa-check-circle"></i> Delivered
+      </button>
+      <button 
+        class="tab-button" 
+        [class.active]="activeTab === 'cancelled'"
+        (click)="setActiveTab('cancelled')">
+        <i class="fas fa-times-circle"></i> Cancelled
+      </button>
+    </div>
+  </div>
+
+  <div class="orders-content">
+    @if (isLoading) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading your orders...</p>
+      </div>
+    } @else {
+      @if (filteredOrders.length === 0) {
+        <div class="empty-state">
+          <h5 class="text-body-tertiary my-2">No {{activeTab === 'all' ? '' : activeTab}} orders found</h5>
+          <button routerLink="/shop" class="btn btn-danger broderR2 mt-4">
+            <i class="fas fa-shopping-bag"></i> Start Shopping
+          </button>
+        </div>
+      } @else {
+        <div class="orders-grid ">
+          @for (order of filteredOrders; track order.orderId) {
+            <div class="order-card shadow" [ngClass]="'status-' + order.orderStatus.toLowerCase()">
+              <div class="card-header">
+                <div class="order-meta">
+                  <span class="order-id">#{{order.orderId}}</span>
+                  <span class="order-date">{{order.orderDate | date:'mediumDate'}}</span>
+                </div>
+                <div class="order-status" [ngClass]="getStatusClass(order.orderStatus)">
+                  {{order.orderStatus}}
+                </div>
+              </div>
+              
+              <div class="card-body ">
+                <div class="order-preview">
+                  @for (item of order.items.slice(0, 2); track item.productId; let last = $last) {
+                    <div class="preview-item" [class.last-item]="last && order.items.length > 2">
+                      <img [src]="item.productImageUrl" alt="{{item.productName}}" class="product-thumbnail">
+                      @if (last && order.items.length > 2) {
+                        <div class="more-items">+{{order.items.length - 2}} more</div>
+                      }
+                    </div>
+                  }
+                </div>
+                
+                <div class="order-totals">
+                  <div class="total-row">
+                    <span>Items</span>
+                    <span>{{order.items.length}}</span>
+                  </div>
+                  <div class="total-row">
+                    <span>Total</span>
+                    <span class="total-amount">{{order.total | currency:'EGP':'symbol':'1.2-2'}}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="card-footer d-flex justify-content-center">
+                <button class="btn outline-btn broderR2" (click)="viewOrderDetails(order.orderId)">
+                  <i class="fas fa-eye"></i> Details
+                </button>
+                
+                @if (canReorder(order)) {
+                  <button class="btn reorder-btn" (click)="reorder(order)">
+                    <i class="fas fa-redo"></i> Reorder
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+  </div>
+</div>
+
+<!--Order Details Model -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">&times;</button>
+    
+    <div class="modal-header">
+      <h2>Order Details</h2>
+      <span class="order-id">#{{selectedOrder?.orderId}}</span>
+    </div>
+    
+    <div class="modal-body">
+      <div class="order-status-badge" [ngClass]="getStatusClass(selectedOrder?.orderStatus || '')">
+        {{selectedOrder?.orderStatus}}
+      </div>
+      
+      <div class="order-meta">
+        <div class="meta-item">
+          <span class="meta-label">Order Date</span>
+          <span class="meta-value">{{selectedOrder?.orderDate | date:'medium'}}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Total Amount</span>
+          <span class="meta-value">{{selectedOrder?.total | currency:'EGP':'symbol':'1.2-2'}}</span>
+        </div>
+      </div>
+      
+      <div class="items-section">
+        <h3>Ordered Items ({{selectedOrder?.items?.length}})</h3>
+        <div class="items-list">
+          <div class="item-card" *ngFor="let item of selectedOrder?.items">
+            <img [src]="item.productImageUrl" alt="{{item.productName}}" class="product-image">
+            <div class="item-details">
+              <h4>{{item.productName}}</h4>
+              <div class="item-meta">
+                <span>Qty: {{item.quantity}}</span>
+                <span>Price: {{item.unitPrice | currency:'EGP':'symbol':'1.2-2'}}</span>
+                <span>Total: {{item.quantity * item.unitPrice | currency:'EGP':'symbol':'1.2-2'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="order-summary">
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span>{{selectedOrder?.subtotal | currency:'EGP':'symbol':'1.2-2'}}</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping:</span>
+          <span>{{selectedOrder?.shipping | currency:'EGP':'symbol':'1.2-2'}}</span>
+        </div>
+        <div class="summary-row">
+          <span>Tax:</span>
+          <span>{{selectedOrder?.tax | currency:'EGP':'symbol':'1.2-2'}}</span>
+        </div>
+        <div class="summary-row grand-total">
+          <span>Total:</span>
+          <span>{{selectedOrder?.total | currency:'EGP':'symbol':'1.2-2'}}</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal-footer d-flex justify-content-center">
+      <button class="btn cancel-btn broderR2" (click)="closeModal()">
+        <i class="fas fa-times"></i> Close
+      </button>
+
+    <button *ngIf="selectedOrder?.orderStatus == 'shipped'" class="btn default-bg text-white broderR2 " (click)="cancelOrder(selectedOrder?.orderId!)">
+      Cancel Order
+      <i class="fas fa-times-circle"></i> 
+    </button>
+    </div>
+  </div>
+</div>

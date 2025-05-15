@@ -1,0 +1,32 @@
+.footer-align{
+    flex-direction: row;
+}
+.default-anchor:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.default-anchor{
+    display: block;
+    text-decoration: none;
+    color: white;
+
+}
+.default-width{
+    width: 25%;
+    font-weight: 600;
+    font-size: 16px;
+}
+.pg-footer{
+    min-height: 300px;
+}
+@media screen and (max-width:600px) {
+    
+
+    .footer-align{
+        flex-direction: column;
+    }
+    .default-width{
+        width: 50%;
+        margin:15px 0px
+    }
+}

@@ -1,0 +1,100 @@
+<div class="navbar-web border-bottom border-1 d-flex align-items-center justify-content-start shadow">
+  <!-- Site Logo -->
+  <div class="col-md-2 d-flex align-items-center justify-content-center  ">
+    <img src="assets/images/BLINCKO.png" routerLink="Homepage" style="width: 35%;">
+  </div>
+  <div class="col-md-8  ">
+    <!-- Navigation Links -->
+    <div class="d-flex align-items-center justify-content-between  mx-auto text-body-tertiary  fw-bold " style="width: 40%; font-size: 1.1rem;">
+      <a href="#" class="nav-link default-anchor" routerLink="Homepage">Home</a>
+      <a  class="nav-link default-anchor" routerLink="shop">Shop</a>
+      <a href="#" class="nav-link default-anchor" routerLink="myOrders">My Orders</a>
+      <a href="#" class="nav-link default-anchor" routerLink="about">About Us</a>
+    </div>
+  </div>
+  <!-- Right Div -->
+  <div class="col-md-2 h-100 gap-1 d-flex align-items-center justify-content-end  ">
+    <!-- Search --> 
+    <!-- <div class="col-md-6 search-box d-flex align-items-center justify-content-start  ">
+      <form class="d-flex  align-items-center justify-content-center">
+        <button type="submit" class="search-button default-bg">
+          <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
+        </button>
+        <input type="text" class="ms-1 search-input" placeholder="Search Products..">
+      </form>
+    </div> -->
+   
+    <!-- User Accounts -->
+    <div class="ms-3 d-flex align-items-center  justify-content-end gap-1 ">
+     @if(UserStatus){
+        <button type="submit" class="nav-buttons">
+            <i class="fa-solid fa-cart-shopping fa-xl" routerLink="cart"></i>
+          </button>
+          <button type="submit" class="nav-buttons">
+            <i class="fa-solid fa-heart fa-xl"  routerLink="wishlist"></i>
+          </button>
+     }
+     @if(!UserStatus){
+      <button type="submit" class="nav-buttons">
+        <i class="fa-solid fa-user-check fa-xl" routerLink="login"></i>
+      </button>
+      <button type="submit" class="nav-buttons" routerLink="register">
+        <i class="fa-solid fa-user-plus fa-xl"></i>
+      </button>
+    }
+    @if(UserStatus){
+      <button type="submit" class="nav-buttons" (click)="logoutCurrentUser()">
+        <i class="fa-solid fa-right-from-bracket fa-xl"></i>
+      </button>
+    }
+    </div>
+  </div>
+</div>
+
+<div class="navbar-mobile mb-5  d-flex flex-column  ">
+  <!-- First Row - Logo and Actions -->
+  <div class="w-100 d-flex align-items-center justify-content-between px-2 py-1">
+    <!-- Logo -->
+    <div class="w-25">
+      <img src="assets/images/BLINCKO.png"   routerLink="Homepage"  style="width: 100%; max-width: 80px;">
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="d-flex align-items-center gap-2 pe-2">
+      <button type="submit" class="nav-buttons">
+        <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+      </button>
+      @if (UserStatus) {
+        <button type="submit" class="nav-buttons">
+          <i class="fa-solid fa-cart-shopping fa-lg" routerLink="cart"></i>
+        </button>
+        <button type="submit" class="nav-buttons">
+          <i class="fa-solid fa-heart fa-lg" routerLink="wishlist"></i>
+        </button>
+      }
+      @if (!UserStatus) {
+        <button type="submit" class="nav-buttons">
+          <i class="fa-solid fa-user-check fa-lg" routerLink="login"></i>
+        </button>
+        <button type="submit" class="nav-buttons">
+          <i class="fa-solid fa-user-plus fa-lg" routerLink="register"></i>
+        </button>
+      }
+      @if(UserStatus){
+        <button type="submit" class="nav-buttons" (click)="logoutCurrentUser()">
+          <i class="fa-solid fa-right-from-bracket fa-lg"></i>
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Second Row - Navigation Links -->
+  <div class="w-75 mx-auto mt-3 border rounded-5  py-2 px-3 shadow-sm">
+    <div class="d-flex align-items-center justify-content-between  mx-auto text-body-tertiary fw-bold" style="font-size: 0.9rem;">
+      <a href="#" class="nav-link default-anchor " routerLink="Homepage">Home</a>
+      <a class="nav-link default-anchor " routerLink="shop">Shop</a>
+      <a href="#" class="nav-link default-anchor " routerLink="myOrders">My Orders</a>
+      <a href="#" class="nav-link default-anchor " routerLink="about">About Us</a>
+    </div>
+  </div>
+</div>

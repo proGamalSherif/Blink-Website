@@ -1,0 +1,41 @@
+@if(wishListProduct){
+    <div
+    class="card my-3  mx-auto shadow "
+    style="width: 19rem; height: 27rem ; background-color: #ffffff;"
+  >
+  
+    <a
+      routerLink="/details/{{ wishListProduct.productId }}"
+      class="text-light text-decoration-none d-block"
+      style="cursor: pointer"
+    >
+      <img
+        [src]="wishListProduct.productImageUrl"
+        class="card-img-top p-4"
+        alt="..."
+        style="height: 17rem"
+      />
+    </a>
+  
+    <div class="card-body p-0 my-4 ">
+      <a
+        routerLink="/details/{{ wishListProduct.productId }}"
+        class="text-light text-decoration-none"
+        style="cursor: pointer"
+      >
+        <h5 class="card-title product-title mx-auto w-75 text-center " style="color:  #372727;">{{ wishListProduct.productName }}</h5>
+      </a>
+
+      
+      <div class="d-flex  justify-content-center align-items-center ">
+          <button class="btn btn-sm rounded-5 my-4 text-light  fs-6 p-3 fw-bold   " style="background-color: #c21919;"(click)="addProductToCart()" ><i class="fa-solid fa-cart-shopping fa-xl " style="color: #efefef;"></i> Move to Cart</button>
+          <button class="btn btn-sm rounded-5 my-4 text-danger mx-2 " (click)="deleteItem()" ><i class="fa-solid fa-trash fa-2xl"></i></button>
+      </div>
+    </div>
+  
+  </div>
+  
+  }
+  
+  
+  

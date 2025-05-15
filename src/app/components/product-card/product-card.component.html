@@ -1,0 +1,162 @@
+@if(ProductEntity){
+  <div
+  class="card my-3  mx-auto shadow "
+  style="width: 19rem; height: 27rem ; background-color: #ffffff;"
+>
+
+  <a
+    routerLink="/details/{{ ProductEntity.productId }}"
+    class="text-light text-decoration-none d-block"
+    style="cursor: pointer"
+  >
+    <img
+      [src]="ProductEntity.productImages[0]"
+      class="card-img-top p-4"
+      alt="..."
+      style="height: 17rem"
+    />
+  </a>
+
+  <div class="card-body p-0 my-4 ">
+    <a
+      routerLink="/details/{{ ProductEntity.productId }}"
+      class="text-light text-decoration-none"
+      style="cursor: pointer"
+    >
+      <h5 class="card-title product-title mx-auto w-75 text-center " style="color:  #372727;">{{ ProductEntity.productName }}</h5>
+    </a>
+    <!-- start price -->
+    @if (ProductEntity.discountPercentage > 0 &&
+        ProductEntity.discountAmount > 0) {
+
+        <div
+          class="new-price w-100 d-flex justify-content-center default-color col-12 fw-700"
+        >
+          <span class="mx-1" style="font-size: 1.2rem; font-weight: bold">
+            {{
+              ProductEntity.productPrice - ProductEntity.discountAmount
+                | number : "1.0-0"
+            }}
+          </span>
+          <small class="mt-auto" style="font-size: 0.9rem;">
+            {{
+              ProductEntity.productPrice - ProductEntity.discountAmount
+                | currency : "EGP" : "symbol" : "1.0-0"
+                | slice : 0 : 3
+            }}
+          </small>
+        </div>
+
+        <div
+          class="p-1 w-100 d-flex justify-content-center fw-700"
+          style="text-decoration: line-through"
+        >
+          <span class="mx-1" style="font-size: 0.9rem; font-weight: bold">
+            {{ ProductEntity.productPrice | number : "1.0-0" }}
+          </span>
+          <small class="mt-auto" style="font-size: 0.6rem">
+            {{
+              ProductEntity.productPrice
+                | currency : "EGP" : "symbol" : "1.0-0"
+                | slice : 0 : 3
+            }}
+          </small>
+        </div>
+
+        }@else {
+        <div class="p-1 w-100 d-flex justify-content-center fw-700 " style="margin-bottom: 17px;">
+          <span class="mx-1" style="font-size: 1.4rem; font-weight: bold">
+            {{ ProductEntity.productPrice | number : "1.0-0" }}
+          </span>
+          <small class="mt-auto" style="font-size: 0.7rem">
+            {{
+              ProductEntity.productPrice
+                | currency : "EGP" : "symbol" : "1.0-0"
+                | slice : 0 : 3
+            }}
+          </small>
+        </div>
+        }
+    <!-- end price -->
+    
+    <div class="d-flex  justify-content-between align-items-center ">
+     
+      <!-- (click)="addProductToWishlist(apiProduct)" -->
+        <button class="btn  btn-sm  rounded-end-pill p-3 " style="background-color: #c21919;" (click)="addProductToWishList()" ><i class="fa-solid fa-heart-circle-plus fa-2x " style="color: #efefef;"></i></button>
+        <h5 class="mt-2">
+          <span *ngFor="let star of getStars(ProductEntity.averageRate)" class="text-warning">
+            &#9733;
+          </span>
+        </h5>
+        <button class="btn btn-sm rounded-start-pill p-3 " style="background-color: #c21919;"(click)="addProductToCart()" ><i class="fa-solid fa-cart-shopping fa-2x " style="color: #efefef;"></i></button>
+     
+    </div>
+  </div>
+
+</div>
+
+}
+
+
+
+
+
+
+
+
+<!-- 
+routerLink="/details/{{ ProductEntity.productId }}"
+
+
+@if (ProductEntity.discountPercentage > 0 &&
+        ProductEntity.discountAmount > 0) {
+
+        <div
+          class="new-price w-100 d-flex justify-content-center default-color col-12 fw-700"
+        >
+          <span class="mx-1" style="font-size: 1.2rem; font-weight: bold">
+            {{
+              ProductEntity.productPrice - ProductEntity.discountAmount
+                | number : "1.0-0"
+            }}
+          </span>
+          <small class="mt-auto" style="font-size: 0.9rem;">
+            {{
+              ProductEntity.productPrice - ProductEntity.discountAmount
+                | currency : "EGP" : "symbol" : "1.0-0"
+                | slice : 0 : 3
+            }}
+          </small>
+        </div>
+
+        <div
+          class="p-1 w-100 d-flex justify-content-center fw-700"
+          style="text-decoration: line-through"
+        >
+          <span class="mx-1" style="font-size: 0.9rem; font-weight: bold">
+            {{ ProductEntity.productPrice | number : "1.0-0" }}
+          </span>
+          <small class="mt-auto" style="font-size: 0.6rem">
+            {{
+              ProductEntity.productPrice
+                | currency : "EGP" : "symbol" : "1.0-0"
+                | slice : 0 : 3
+            }}
+          </small>
+        </div>
+
+        }@else {
+        <div class="p-1 w-100 d-flex justify-content-center fw-700">
+          <span class="mx-1" style="font-size: 1.4rem; font-weight: bold">
+            {{ ProductEntity.productPrice | number : "1.0-0" }}
+          </span>
+          <small class="mt-auto" style="font-size: 0.7rem">
+            {{
+              ProductEntity.productPrice
+                | currency : "EGP" : "symbol" : "1.0-0"
+                | slice : 0 : 3
+            }}
+          </small>
+        </div>
+        }
+-->

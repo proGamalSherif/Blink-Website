@@ -1,0 +1,61 @@
+@if (!wishList) {
+    <div class="text-center " style="min-height: 70vh;">
+      <div class="spinner-border text-danger" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  } @else {
+    <div class="container-fluid " style="min-height: 70vh;">
+        <div class="row d-flex justify-content-center ">
+            <div class="col-12 col-md-10 p-3 ">
+                <!-- Breadcrumb Navigation -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a routerLink="Homepage" class="link-danger">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">WishList</li>
+                    </ol>
+                </nav>
+
+    
+                <!-- Product Grid -->
+                <div class="row d-flex mx-auto justify-content-center g-3 ">
+                    @if(wishList.wishListDetails){
+    
+                        @if(wishList.wishListDetails.length == 0)
+                        {
+                            <div class="col mx-auto my-3 w-100 text-center d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+                                <h3 class="text-danger fw-lighter">No Products In Your WishList</h3>
+                            </div>
+                        }@else
+                        {
+                            <div class="col-12 d-flex justify-content-end align-items-center my-3">      
+                                <button class="btn btn-light btn-outline-danger broderR2 " (click)="clearCart()">Clear WishList</button>
+                            </div>
+                                @for (Product of wishList.wishListDetails ; track Product.productId) {
+                                    
+                                        <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center px-3 py-2  ">
+                                            <app-wish-list-product-card [wishListProduct]="Product" [wishListId]="wishList.wishListId" class="w-100 "></app-wish-list-product-card>
+                                          </div>
+                                        
+                                   
+                                    }
+                        }
+    
+                    }
+                   
+                   
+                </div>
+    
+            </div>      
+
+        </div>
+ </div>
+  }
+
+
+
+          
+          
+            

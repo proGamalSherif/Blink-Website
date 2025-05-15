@@ -1,0 +1,15 @@
+.ceo img{
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+.ceo h2{
+    color: rgb(74, 74, 74);
+}
+.ceo p{
+    margin-left: 15px;
+}
+.ceo img:hover{
+    transform: scale(1.4);
+    transition: 0.5s ease-in-out;
+}

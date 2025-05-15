@@ -1,0 +1,38 @@
+.product-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  .card {
+    width: 100% !important;
+    max-width: 19rem;
+    height: 92% !important;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card img {
+    object-fit: contain;
+    width: 100%;
+    height: 17rem;
+  }
+  .card-body button {
+    transition: transform 0.3s ease-in-out, color 0.5s ease-in-out;
+  }
+  .card-body button i{
+      transition: transform 0.5s ease-in-out;
+    }
+  .card-body button:hover {
+    transform: scale(0.8);
+  }
+  
+  
+  

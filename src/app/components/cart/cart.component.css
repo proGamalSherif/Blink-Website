@@ -1,0 +1,43 @@
+.container {
+    padding: 0;
+    margin-top:50px;
+    min-height: 62vh;
+}
+
+.table, .table tbody, .table tr, .table td, .table th {
+    background-color: transparent !important;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    min-height: 300px;
+  }
+  .border-2 {
+    border-width: 2px!important;
+    box-sizing: border-box;
+  }
+  .text-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+.buy-button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.my-div{
+    border-radius: 3px !important;
+}
+
+ button{
+    border-radius: 2px !important;
+}
+.action-button:hover{
+    color: white!important;
+    background-color: red !important;
+}

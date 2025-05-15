@@ -1,0 +1,79 @@
+<section class="max-vh-100">
+  <div class="containr2">
+    <div class="container3">
+      <div class="row d-flex  ">
+        <div class="col-md-6  ">
+          <div>
+            <img src="assets/images/register.png" alt="Login Image" class="img-fluid  " />
+          </div>
+        </div>
+
+        <div class="col-md-6 px-5 d-flex align-items-center justify-content-center">
+          <div class="px-5 mx-4">
+            <p class="title mt-2 mb-3">Login</p>
+
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+              <div class="mb-2">
+                <input
+                  id="identifier"
+                  type="text"
+                  formControlName="identifier"
+                  class="custom-input"
+                  placeholder="Enter your email or username"
+                  autocomplete="username"
+                />
+
+                <div class="text-danger" *ngIf="loginForm.get('identifier')?.invalid && loginForm.get('identifier')?.touched">
+                  <p *ngIf="loginForm.get('identifier')?.getError('required')">Email or Username is required</p>
+                  <p *ngIf="loginForm.get('identifier')?.getError('email')">Email is invalid format</p>
+                </div>
+              </div>
+
+              <div class="mb-2">
+                <input
+                  id="password"
+                  type="password"
+                  formControlName="password"
+                  class="custom-input"
+                  placeholder="Enter your password"
+                  autocomplete="new-password"
+                />
+                <div class="text-danger" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                  <p *ngIf="loginForm.get('password')?.getError('required')">Password is required</p>
+                  <p *ngIf="loginForm.get('password')?.getError('pattern')">Password must be at least 8 characters long and include at least one uppercase letter, one digit, and one special character</p>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                [disabled]="isLoading"
+                class="btn broderR2 btn-danger mt-4 mx-auto d-block text-white w-50"
+              >
+                Login
+                <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+              </button>
+
+              <p class="text-danger mt-1" *ngIf="msgerror">{{ msgerror }}</p>
+
+              <!-- for reset password-->
+              <div class="text-center mt-3">
+                <a [routerLink]="['/reset-password']" class="btn btn-link text-dark">Forgot your password?</a>
+              </div>
+
+              <div class="text-center mt-1">
+                <a [routerLink]="['/register']" class="btn btn-link text-dark">Don't have an account? Register</a>
+              </div>
+            </form>
+            
+            <div class="text-center mt-5">
+              <a href="https://blink-dashboard-t.vercel.app/#/login" class="btn  text-dark"
+                >Login as a <span class="fw-bold fst-italic text-danger text-decoration-none">Blink</span> Partener 
+              <button class="btn btn-dark btn-sm rounded-pill" > Proceed</button></a >
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

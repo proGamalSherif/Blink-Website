@@ -1,0 +1,20 @@
+.default-bg {
+    background-color: #da4446;
+  }
+  
+  .default-color {
+    color: #da4446;
+  }
+  .color-white{
+      color: white;
+  }
+  .fw-700 {
+    font-weight: 700;
+  }
+  .card-section-body{
+    margin-left: 20px;
+  }
+  
+  .broderR2{
+    border-radius: 2px !important;
+  }

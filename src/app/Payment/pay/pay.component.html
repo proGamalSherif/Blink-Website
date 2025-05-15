@@ -1,0 +1,47 @@
+
+<div class="p-5">
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a routerLink="Homepage" class="link-danger">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a routerLink="Homepage" class="link-danger">Checkout</a>
+      </li>
+        <li class="breadcrumb-item active" aria-current="page">Visa Payment</li>
+    </ol>
+</nav>
+</div>
+
+
+<div class="payment-container shadow ">
+
+
+  <form (ngSubmit)="handlePayment()" id="payment-form">
+    <div class="form-group">
+      <label for="cardHolder" class="form-label fw-bold">Cardholder Name</label>
+      <input
+        type="text"
+        id="cardHolder"
+        [(ngModel)]="cardHolderName"
+        name="cardHolderName"
+        required
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group mt-3">
+      <label class="form-label fw-bold">Card Information</label>
+      <div id="card-element" class="card-element"></div>
+    </div>
+
+ 
+    <div class="d-flex justify-content-center a">
+      <button type="submit" [disabled]="isProcessing" class="btn btn-danger mt-5 broderR2"> 
+        {{ isProcessing ? 'Processing...' : 'Pay Now' }}
+      </button>
+    </div>
+
+  
+      </form>
+</div>

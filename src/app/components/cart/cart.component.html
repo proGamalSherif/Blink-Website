@@ -1,0 +1,158 @@
+<div class="container">
+  <div class="row mx-0 d-flex justify-content-between">
+    <!-- Product Table Column (8/12 width) -->
+    <div class="col-12 col-md-7  overflow-hidden pe-0">
+      <div class="table-responsive">
+        <table class="table w-100 mb-0">
+          <tbody>
+            @for (cartItem of cart.cartDetails; track $index) {
+            <tr>
+              <!-- Product Image & Name -->
+              <td style="max-width: 200px;" class="align-middle  text-center">
+                <div class="d-flex align-items-center">
+                  <img
+                    [src]="cartItem.productImageUrl"
+                    class="img-fluid rounded"
+                    alt="Product Image"
+                    style="width: 80px; height: 80px; object-fit: contain"
+                  />
+                  <h6 class="mb-0 ps-2 text-truncate w-50">
+                    {{cartItem.productName}}
+                  </h6>
+                </div>
+              </td>
+
+              <!-- Quantity Controls -->
+              <td class="align-middle  text-center">
+                <div class="d-inline-flex align-items-center border rounded p-1">
+                  <button
+                    class="btn btn-danger btn-sm fw-bolder"
+                    (click)="decreamentQauntity(cartItem.productId)"
+                  >
+                    -
+                  </button>
+                  <span class="mx-2 fw-bold">{{cartItem.quantity}}</span>
+                  <button
+                    class="btn btn-dark btn-sm fw-bolder"
+                    (click)="icreamentQauntity(cartItem.productId)"
+                  >
+                    +
+                  </button>
+                </div>
+              </td>
+
+              <!-- Price Calculation -->
+              <td class="align-middle text-center text-nowrap ">
+                <span class="mx-1" style="font-size: 0.9rem">
+                  {{ (cartItem.productUnitPrice - cartItem.discountAmount) * cartItem.quantity | number : "1.0-0" }}
+                </span>
+                <small style="font-size: 0.7rem">
+                  {{ 50000 | currency : "EGP" : "symbol" : "1.0-0" | slice : 0 : 3 }}
+                </small>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="d-flex justify-content-between mt-3 p-2">
+        <button
+          class="btn btn-light btn-sm bg-transparent border border-1 action-button"
+          routerLink="/Homepage"
+        >
+          Return to Shop
+        </button>
+
+        @if(cart.cartDetails.length > 0) {
+          <button
+          class="btn btn-light btn-sm bg-transparent border border-1 action-button"
+          (click)="clearCart()"
+        >
+          Clear Cart
+        </button>
+        }
+        
+      </div>
+    </div>
+
+    <!-- Checkout Summary Column (4/12 width) -->
+    <div class="col-12 col-md-4  mt-3 mt-md-0 ">
+      <div class="mb-4 d-flex justify-content-between gap-2">
+        <input 
+          type="text" 
+          class="form-control form-control-sm" 
+          placeholder="Coupon Code"
+        >
+        <button class="btn btn-danger btn-sm px-3">
+          Apply Coupon
+        </button>
+      </div>
+
+      <!-- Summary Card -->
+      <div class="border border-1 border-black shadow">
+        <div class="px-3 px-sm-5 py-3">
+          <p class="text-body-tertiary text-center mb-1">CART SUMMARY</p>
+          <hr class="w-25 mx-auto">
+
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-between ">
+                    <p class="mb-0" style="font-size: 0.8rem">SubTotal</p>
+                    <div class="d-flex align-items-center">
+                      <span class="mx-1" style="font-size: 0.8rem">
+                        {{ totalPrice | number : "1.0-0" }}
+                      </span>
+                      <small style="font-size: 0.7rem">
+                        {{ totalPrice | currency : "EGP" : "symbol" : "1.0-0" | slice : 0 : 3 }}
+                      </small>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0" style="font-size: 0.8rem">Shipping</p>
+                    <span class="text-muted" style="font-size: 0.8rem">free</span>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="fw-bold">
+                <td>
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-0" style="font-size: 0.8rem">Total</p>
+                    <div class="d-flex align-items-center">
+                      <span class="mx-1" style="font-size: 0.8rem">
+                        {{ totalPrice * 1.14 | number : "1.0-0" }}
+                      </span>
+                      <small style="font-size: 0.7rem">
+                        {{ totalPrice * 1.14 | currency : "EGP" : "symbol" : "1.0-0" | slice : 0 : 3 }}
+                      </small>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="text-muted text-center mb-2" style="font-size: 0.6rem">
+            *Taxes 14% and shipping calculated.
+          </p>
+          
+          <button 
+            [routerLink]="['/checkout',cart.cartId]"
+            class="btn btn-danger w-100 fw-bold py-2"
+          >
+            CheckOut
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

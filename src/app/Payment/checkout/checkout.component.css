@@ -1,0 +1,63 @@
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  padding-left: 24px;
+  color: #5a5a5a;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.title::before,
+.title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #5a5a5a;
+}
+
+.title::after {
+  animation: pulse 1s linear infinite;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.custom-input {
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  outline: none !important;
+}
+
+.container {
+  margin-top: 50px;
+  min-height: 62vh;
+}
+
+.table,
+.table tbody,
+.table tr,
+.table td,
+.table th {
+  background-color: transparent !important;
+}
+
+.my-div {
+  border-radius: 3px !important;
+}
+
+button {
+  border-radius: 2px !important;
+}

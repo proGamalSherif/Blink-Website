@@ -1,0 +1,317 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <!-- product-details.component.html -->
+      <div class="gallery-container">
+        <!-- Main Carousel -->
+        <div #mainCarousel class="carousel slide" data-bs-ride="false">
+          <div class="carousel-inner">
+            <div
+              *ngFor="let image of images; let i = index"
+              class="carousel-item"
+              [class.active]="i === activeIndex"
+            >
+              <img
+                [src]="image.main"
+                class="d-block w-100 shadow"
+                alt="Main image"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Thumbnail Gallery with Arrows -->
+        <div
+          class="thumbnail-wrapper d-flex align-items-center justify-content-center"
+        >
+          <button
+            *ngIf="showArrows"
+            class="thumbnail-arrow left text-dark"
+            (click)="scrollThumbnails('left')"
+          >
+            ❮
+          </button>
+
+          <div #thumbnailContainer class="thumbnail-container">
+            <div
+              *ngFor="let image of images; let i = index"
+              class="thumbnail-item"
+              [class.active]="i === activeIndex"
+              (click)="selectImage(i)"
+            >
+              <img style="object-fit: contain;" [src]="image.thumb" alt="Thumbnail" />
+            </div>
+          </div>
+
+          <button
+            *ngIf="showArrows"
+            class="thumbnail-arrow right text-dark"
+            (click)="scrollThumbnails('right')"
+          >
+            ❯
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 mt-5">
+      <h4 class="fw-bolder">{{product?.productName}}</h4>
+      <p class="mx-1">
+        @for (star of getStars(product?.averageRate); track $index) {
+        <span class="text-warning">★</span>
+        }
+        <span class="mx-1" style="font-size: 0.7rem">({{ product?.countOfRates}} Reviews)</span> |
+        @if((product?.stockQuantity ?? 0) > 0)
+        {
+          <span class="text-success small">InStock</span>
+        }@else {
+          <span class="text-danger small">Out of Stock</span>
+        }
+        
+      </p>
+
+    @if (product?.discountPercentage ?? 0 > 0) 
+    {
+      <p class="card-text fw-bold" style="color: red">
+        <span class="mx-1" style="font-size: 1.4rem; font-weight: bold">{{
+           (product?.productPrice ?? 0) - (product?.discountAmount ?? 0) | number : "1.0-0"
+        }}</span>
+        <small>{{
+          product?.productPrice| currency : "EGP" : "symbol" : "1.0-0" | slice : 0 : 3
+        }}</small>
+      </p>
+
+      <p class="card-text fw-bold  " style="color: #1e1e1e ;">
+        <span class="mx-1" style="font-size: 0.9rem; font-weight: bold ;text-decoration: line-through">{{
+           product?.productPrice | number : "1.0-0"
+        }}</span>
+        <small style="font-size: 0.7rem;">{{
+          product?.productPrice| currency : "EGP" : "symbol" : "1.0-0" | slice : 0 : 3
+        }}</small>
+      </p>
+      
+    }@else {
+      <p class="card-text fw-bold" style="color: #00391f">
+        <span class="mx-1" style="font-size: 1.2rem; font-weight: bold">{{
+           product?.productPrice | number : "1.0-0"
+        }}</span>
+        <small>{{
+          product?.productPrice| currency : "EGP" : "symbol" : "1.0-0" | slice : 0 : 3
+        }}</small>
+      </p>
+      
+    } 
+
+     
+
+
+      <p style="font-size: 0.8rem">
+        {{product?.productDescription}}
+      </p>
+      <hr />
+      <div class="row g-2 align-items-center justify-content-between">
+        <!-- Counter -->
+         @if (product?.stockQuantity?? 0 >= 1) 
+         {
+          <div class="col-auto">
+            <div class="d-flex buy-div align-items-center border rounded p-1">
+              <button (click)="decreamentQuantity()" class="btn btn-danger buy-button btn-sm fw-bolder">
+                -
+              </button>
+              <span class="mx-3 fw-bold"> {{uxQuantity}} </span>
+              <button (click)="increamentQuantity()" class="btn btn-dark buy-button btn-sm fw-bolder">+</button>
+            </div>
+          </div>
+
+          
+        <!-- Buy Now Button -->
+        <div class="col">
+          <button class="btn btn-danger p-2 buy-button w-100 btn-sm" (click)="addProductToCart()">
+            Buy Now
+          </button>
+        </div>
+        
+         }@else{
+          <div class="col-auto">
+            <div class="d-flex buy-div align-items-center border rounded p-1">
+              <button class="btn btn-danger buy-button btn-sm disabled fw-bolder">
+                -
+              </button>
+              <span class="mx-3 fw-bold"> 0 </span>
+              <button class="btn btn-dark buy-button btn-sm disabled fw-bolder">+</button>
+            </div>
+          </div>
+
+          
+        <!-- Buy Now Button -->
+        <div class="col">
+          <button class="btn btn-danger disabled p-2 buy-button w-100 btn-sm" (click)="addProductToCart()">
+            Buy Now
+          </button>
+        </div>
+         }
+        
+
+
+        <!-- Wishlist Icon -->
+        <div class="col-auto">
+          <div class="buy-div border rounded p-2">
+            <span><i (click)="addProductToWishList()" class="fa-regular fa-heart fa-xl wishlist-icon"></i></span>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="border mx-1 my-3 p-3 buy-div">
+        <!-- First Row -->
+        <div class="border-bottom pb-2 d-flex align-items-center">
+          <div class="d-flex align-items-center justify-content-center   p-2 me-3">
+            <i class="fa-solid fa-truck-fast fa-xl text-body-tertiary"></i>
+          </div>
+          <div>
+            <h6 class="mb-1">Free Delivery</h6>
+            <span class="text-muted">Enter your Postal Code for Delivery Availability</span>
+          </div>
+        </div>
+      
+        <!-- Second Row -->
+        <div class="pt-2 d-flex align-items-center">
+          <div class="d-flex align-items-center justify-content-center   p-2 me-3">
+            <i class="fa-solid fa-arrows-rotate fa-xl text-body-tertiary"></i>
+          </div>
+          <div>
+            <h6 class="mb-1">Easy Returns</h6>
+            <span class="text-muted">Hassle-free returns within 30 days</span>
+          </div>
+        </div>
+      </div>
+      
+
+    </div>
+  </div>
+  <hr class=" text-danger w-50 border-2 mx-auto my-4 " />
+  <div class="row col-10 col-md-8 mx-auto  mt-5   ">
+    <div class="col-12 col-md-12  d-flex justify-content-center my-5">
+      @if(canaddReview){
+        <button 
+        class="btn btn-danger btn-sm border border-1 action-button w-25 broderR2 mx-auto"
+        [attr.data-bs-target]="'#exampleModalToggle'"
+        data-bs-toggle="modal"
+        > 
+        Add Review</button>
+      }
+     
+    </div>
+    <div class="col-12 col-md-4 ">
+      <p class="text-body-tertiary fs-3 fw-bold">Overall Rating</p>
+      <p class="fw-700 fs-1 fst-italic">{{product?.averageRate | number:'1.1-1' }}</p>
+
+      @for (star of getStars(product?.averageRate ); track $index) {
+        <span class="text-warning fs-4">★</span>}
+        <p class="text-body-tertiary fs-5">Based on {{product?.countOfRates}} reviews</p>
+    </div>
+
+    <div class=" mt-5 col-12 col-md-8 border-start  px-5">
+      @for(review of product?.productReviews; track $index) {
+
+        <div class="col-12   mb-3">
+          <div class="d-flex ">
+            <div class="p-3  ">
+              <i class="fa-solid fa-user fa-2xl text-body-tertiary"></i>
+            </div>
+            <div class="px-3">
+              <h6 class="mb-1 mt-2">{{review.username}}</h6> 
+              <p class="text-muted"> @for (star of getStars(review.rate); track $index) {
+                <span class="text-warning fs-5">★</span>
+                } </p>
+              <span class="text-muted"> {{review.reviewComment[0]}} </span>
+            </div>
+          </div>
+        </div>
+
+        <hr class=" text-danger w-50 border-2 mx-auto my-4 " />
+       }
+    </div>
+
+    
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div
+class="modal fade"
+[id]="'exampleModalToggle'"
+aria-hidden="true"
+aria-labelledby="exampleModalToggleLabel"
+tabindex="-1"
+>
+<div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-content ">
+    <div class="modal-body">
+      <div class="d-flex justify-content-end">
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+          <img
+            [src]="product?.productImages?.[0]"
+            class="img-fluid rounded shadow"
+            style="max-height: 300px"
+          />
+        </div>
+
+        <div class="col-md-6 d-flex flex-column ">
+          <h6 class="fw-700  text-body-tertiary">{{ product?.productName }}</h6>
+         <div>
+          <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+
+            <!-- Rating (1 to 5) -->
+            <div class="mb-3">
+              <div class="d-flex gap-3 my-2">
+                <div *ngFor="let num of [1,2,3,4,5]">
+                  <input type="radio" [value]="num" formControlName="rate" [id]="'rate' + num" />
+                  <label [for]="'rate' + num" class="text-warning ms-1">  {{ num }}★</label>
+                </div>
+              </div>
+              <div *ngIf="reviewForm.get('rate')?.touched && reviewForm.get('rate')?.invalid" class="text-danger mt-1">
+                Please select a rating.
+              </div>
+            </div>
+          
+            <!-- Comment -->
+            <div class="mb-3">
+              <textarea
+                id="comment"
+                class="form-control"
+                rows="2"
+                formControlName="comment"
+                placeholder="Write your comment here..."
+              ></textarea>
+            </div>
+          
+            <!-- Submit Button -->
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-sm btn-danger broderR2" [disabled]="reviewForm.invalid" data-bs-dismiss="modal">
+                Submit Review
+              </button>
+            </div>
+          
+          </form>
+          
+         </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="row d-flex justify-content-center"></div>
+  </div>
+</div>
+</div>

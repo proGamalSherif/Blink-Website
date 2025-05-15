@@ -1,0 +1,181 @@
+<div class="container-fluid px-0 pg-content">
+  <!-- Parent Categories & First Banner -->
+  <div class="row m-0">
+    <!-- Carousel: Appears first on small/medium, second on large -->
+    <div class="col-md-9 mt-4 carouseldiv order-1 order-md-2">
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+
+        <div class="carousel-inner rounded-3" style="cursor: pointer;">
+          <div class="carousel-item active" data-bs-interval="2500">
+            <img [routerLink]="['/details', 1 ]"  src="../../../assets/images/sp2.jpg" class="d-block w-100" alt="Slide 1">
+            <div class="carousel-caption d-none d-md-block">
+              <h1>New MacBook Air M5 Chip</h1>
+              <p>Discover our latest sales and grab amazing deals before they're gone! Shop now</p>
+              
+            </div>
+          </div>
+          <div class="carousel-item" data-bs-interval="2500" >
+            <img [routerLink]="['/details', 1 ]" src="../../../assets/images/sp1.jpg" class="d-block w-100" alt="Slide 2">
+            <div class="carousel-caption d-none d-md-block">
+              <h1>JBL 590L</h1>
+              <p>Discover our latest sales and grab amazing deals before they're gone! Shop now </p>
+            </div>
+          </div>
+          <div class="carousel-item" data-bs-interval="2500">
+            <img [routerLink]="['/details', 1 ]" src="../../../assets/images/sp5.jpg" class="d-block w-100" alt="Slide 3">
+            <div class="carousel-caption d-none d-md-block">
+              <h1>MEGA SALE On All Apple Products<i class="fa-solid fa-exclamation mx-2"></i></h1>
+              <p>Discover our latest sales and grab amazing deals before they're gone! Shop now</p>
+            </div>
+          </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Parent Categories Sidebar: Appears second on small/medium, first on large -->
+    <div class="col-md-3 order-2 order-md-1">
+      <div class="parent-sidebar pt-4">
+        <ul class="w-100 nav-list">
+          @for (ParentCategory of ParentCategoryArr; track ParentCategory.categoryId) {
+            <li class="nav-item d-flex justify-content-start">
+              <a class="nav-item-a fs-6 fw-bold" [routerLink]="['/shop', ParentCategory.categoryId]">
+                {{ParentCategory.categoryName}}
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="mx-auto rounded" style="border: 1px solid #f00303; width: 40%; margin-top: 100px; margin-bottom: 100px;">
+
+  <!-- Today Discounts -->
+  <div class="card-section d-flex flex-column mt-2 col-md-9 mx-auto">
+    <div class="card-section-header p-3">
+      <div class="row">
+        <div class="col-md-1 default-bg header-key broderR2"></div>
+        <div class="col-md-10 d-flex header-name h-100 align-items-center justify-content-start">
+          <p class="fw-700 h-100 header-tag-name">Running Discounts</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row d-flex mx-auto justify-content-center g-3 w-100">
+      @for (Product of ProductDiscountArr; track Product.productId; let i = $index) {
+        @if (i < 4) {
+          @if (Product.discountAmount > 0) {
+            <div class="col-6 col-md-4 col-lg-4 d-flex justify-content-center">
+              <app-product-card [productId]="Product.productId" class="w-100"></app-product-card>
+            </div>
+          }
+        }
+       
+      }
+    </div>
+
+    <div class="card-section-footer d-flex align-items-center justify-content-center">
+      <button type="button" class="btn btn-all short-btn broderR2 mt-5" routerLink="/shop">All Products</button>
+    </div>
+  </div>
+
+  <hr class="mx-auto my-5 rounded" style="border: 1px solid #f00303; width: 40%;">
+
+  <!-- Browse By Category -->
+  <div class="card-section-category d-flex flex-column mt-2 col-md-9 mx-auto">
+    <div class="card-section-header px-3 p-3 w-100">
+      <div class="row">
+        <div class="col-md-1 default-bg header-key broderR2"></div>
+        <div class="col-md-10 d-flex header-name">
+          <p class="fw-700 header-tag-name">Browse by Category</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-section-body d-flex flex-nowrap mt-3 overflow-auto border border-3 rounded-1 p-3 gap-2">
+      @for (category of CategoryArr; track category.categoryId) {
+        <app-category-card [categoryId]="category.categoryId"></app-category-card>
+      }
+    </div>
+  </div>
+
+  <!-- Advertisment Banner In The Middle Page -->
+  <div class="container-fluid p-0" style="margin-top: 150px;">
+    <div class="middle-adv d-flex justify-content-center align-items-center w-100 mt-2 p-0">
+
+      <img [routerLink]="['/details', 170 ]" src="assets/images/sp3.jpg" class="img-fluid mImage" style="width: 100%; height: 80vh; object-fit: fill; cursor: pointer;" alt="">
+
+    </div>
+  </div>
+
+  <hr class="mx-auto my-5 rounded" style="border: 1px solid #f00303; width: 40%;">
+
+  <!-- Explore Our Products -->
+  <div class="card-section d-flex flex-column mt-2 col-md-9 mx-auto">
+    <div class="card-section-header p-3 h-25">
+      <div class="row">
+        <div class="col-md-1 default-bg header-key broderR2"></div>
+        <div class="col-md-10 d-flex header-name">
+          <p class="fw-700 header-tag-name">Explore Our Products</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row d-flex mx-auto justify-content-center g-3">
+      @for (Product of ProductArr; track Product.productId; let i = $index) {
+        @if (i < 8) {
+          <div class="col-6 col-md-4 col-lg-4 d-flex justify-content-center">
+            <app-product-card [productId]="Product.productId" class="w-100"></app-product-card>
+          </div>
+        }
+      }
+    </div>
+
+    <div class="card-section-footer d-flex align-items-center justify-content-center">
+      <button type="button" class="btn btn-all broderR2 mt-5" routerLink="/shop">All Products</button>
+    </div>
+  </div>
+
+  <hr class="mx-auto my-5 rounded" style="border: 1px solid #f00303; width: 40%;">
+
+  <!-- Grid Banner -->
+  <div class="card-section d-flex flex-column mt-2 col-md-9 mx-auto">
+    <div class="card-section-header px-3 p-3">
+      <div class="row">
+        <div class="col-md-1 default-bg header-key broderR2"></div>
+        <div class="col-md-10 d-flex header-name">
+          <p class="fw-700 header-tag-name">New Arrival</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-section-body d-flex justify-content-center flex-wrap gap-5">
+      <div class="grid-container mt-2">
+        <div id="itm-large" class="item">
+          <img src="assets/images/ps-5.png" style="width: 90%;" alt="">
+        </div>
+        <div id="itm-med" class="item">
+          <img src="assets/images/women.png" style="width: 90%;" alt="">
+        </div>
+        <div id="itm-small-1" class="item">
+          <img src="assets/images/speaker.png" style="width: 90%;" alt="">
+        </div>
+        <div id="itm-small-2" class="item">
+          <img src="assets/images/perfume.png" style="width: 90%;" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
